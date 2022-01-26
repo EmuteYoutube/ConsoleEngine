@@ -2,21 +2,33 @@
 using ConsoleEngineLib.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleEngineLib.Scenes
 {
     public class Scene : RenderGameLoopBase
     {
+        public Scene Clone()
+        {
+            return new Scene(Name, gameObjects.Select(o => o.Clone()).ToList());
+        }
         public string Name { get; }
 
         protected List<GameObject> gameObjects = new List<GameObject>();
+
+
         public Scene(string name)
         {
             Name = name;
         }
+
+        public Scene(string name,List<GameObject> gos):this(name)
+        {
+            this.gameObjects = gos;
+        }
         private bool hasStarted = false;
-
-
+        public Game Game { get; set; }
+        public GameObject GetGameObject(string name)=>gameObjects.FirstOrDefault(o=>o.Name == name);
         public override void Update()
         {
             foreach (var go in this.gameObjects)
@@ -73,5 +85,7 @@ namespace ConsoleEngineLib.Scenes
                 go.Start();
             }
         }
+
+       
     }
 }

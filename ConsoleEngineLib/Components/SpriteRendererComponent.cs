@@ -1,35 +1,22 @@
 ﻿using ConsoleEngineLib.Math;
-using ConsoleEngineLib.Rendering;
 using ConsoleEngineLib.Sprites;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace ConsoleEngineLib.Components
 {
-    public class SpriteRendererComponent:Component
+    public class SpriteRendererComponent : SpriteAnimationComponent
     {
-        public SpriteRendererComponent(Sprite sprite,Vector2? centerPoint =null)
+        public SpriteRendererComponent(Sprite sprite, Vector2? centerPoint = null) : base(new Sprite[] { sprite}, centerPoint)
         {
-            Sprite = sprite;
-            if (centerPoint == null)
-                this.CenterPoint = calculateCenterPoint(sprite);
-            else
-                this.CenterPoint = centerPoint;
+            this.sprite = sprite;
         }
 
-        private Vector2 calculateCenterPoint(Sprite sprite)
-        {
-            return new Vector2(sprite.Width / 2, sprite.Height / 2);
-        }
+        private Sprite sprite { get; }
 
-        public Sprite Sprite { get; }
-        public Vector2 CenterPoint { get; }
-
-        public override List<RenderChunk>? Render()
+        public override Component Clone()
         {
-            RenderChunk chunk = new RenderChunk(this.CenterPoint,this.Sprite.GetData());
-            return new List<RenderChunk>() { chunk };
+            return new SpriteRendererComponent(sprite, CenterPoint);
         }
     }
 }

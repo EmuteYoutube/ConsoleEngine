@@ -2,12 +2,18 @@
 using ConsoleEngineLib.Math;
 using ConsoleEngineLib.Rendering;
 using ConsoleEngineLib.Scenes;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleEngineLib.Games
 {
     public class GameObject: RenderGameLoopBase
     {
+        public GameObject Clone()
+        {
+            return new GameObject(Name, new Vector3(Position.X,Position.Y,Position.Z), components.Select(o=>o.Clone()).ToList());
+        }
         public Scene Scene { get; set; }
         protected List<Component> components { get; set; }
         public string Name { get; private set; }
@@ -18,11 +24,23 @@ namespace ConsoleEngineLib.Games
             this.components = new List<Component>();
             this.Position = Vector3.Zero;
         }
-
-        public GameObject(string name,Vector3 position): this(name)
-        { 
+        public T GetComponent<T>() where T:Component
+        {
+            return (T)this.components
+                .FirstOrDefault(o=>typeof(T)
+                .IsAssignableFrom(o.GetType()));
+        }
+        public GameObject(string name, Vector3 position) : this(name)
+        {
             this.Position = position;
         }
+
+       
+          public GameObject(string name, Vector3 position, List<Component> components) : this(name,position)
+        {
+            this.components = components;
+        }
+
         private bool hasStarted = false;
      
         public void AddComponent(Component component)
@@ -75,5 +93,7 @@ namespace ConsoleEngineLib.Games
                 return chunks;
             return null;
         }
+
+       
     }
 }

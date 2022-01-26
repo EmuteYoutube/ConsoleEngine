@@ -1,4 +1,5 @@
-﻿using ConsoleEngineLib.Rendering;
+﻿using ConsoleEngineLib.Audio;
+using ConsoleEngineLib.Rendering;
 using ConsoleEngineLib.Scenes;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,12 @@ namespace ConsoleEngineLib.Games
         private readonly Window window;
         private readonly int viewPortHeight;
         private readonly int viewPortWidth;
+
+        public void Close()
+        {
+            this.isGameRunning = false;
+        }
+
         protected Renderer renderer = new DefaultRenderer();
         private bool isGameRunning = true;
         public Game(Window window, int viewPortHeight,int viewPortWidth,int fps = 30)
@@ -61,10 +68,13 @@ namespace ConsoleEngineLib.Games
 
         private int msPerTick;
         private Thread renderThread;
+        private Thread inputThread;
 
         public void ChangeScene(int index)
         {
-            this.currentScene = this.scenes[index];//TODO:Clone this
+            this.currentScene = this.scenes[index].Clone();//TODO:Clone this
+            currentScene.Game = this;
+            currentScene?.Start();
         }
         public override void Update()
         {
@@ -73,7 +83,21 @@ namespace ConsoleEngineLib.Games
         public override void Start()
         {
             this.renderThread = new Thread(new ThreadStart(renderThreadTick));
+            this.inputThread = new Thread(new ThreadStart(inputThreadTick));
             renderThread.Start();
+            inputThread.Start();
+        }
+        private List<ConsoleKeyInfo> inputs = new List<ConsoleKeyInfo>();
+        private void inputThreadTick()
+        {
+            while (isGameRunning)
+            { 
+                var key = Console.ReadKey(true);
+                lock (inputs)
+                {
+                    inputs.Add(key);
+                }
+            }
         }
 
         private int tickNum = 0;
@@ -82,6 +106,7 @@ namespace ConsoleEngineLib.Games
         public static float DeltaTime { get; private set; }
         private void renderThreadTick()
         {
+            currentScene.Game = this;
             currentScene?.Start();
             nextTick = DateTime.Now.AddMilliseconds(msPerTick);
             Stopwatch sw = new Stopwatch();
@@ -94,11 +119,18 @@ namespace ConsoleEngineLib.Games
                     if (tickNum % 100 == 55)
                         resetWindow();
 
+                    lock (inputs)
+                    {
+                        Input.SetKeys(inputs.ToArray());
+                        inputs.Clear();
+                    }
 
                     DeltaTime = (float)((float)sw.ElapsedMilliseconds / 1000.0f);
                     sw.Restart();
+                    AudioManager.PlayQueue();
                     Update();
                     Render();
+                    Input.ClearKeys();
                     
                     nextTick = nextTick.AddMilliseconds(msPerTick);
                     var msOffset = nextTick - DateTime.Now;

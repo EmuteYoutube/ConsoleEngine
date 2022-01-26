@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Sounds\Pop.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Sounds\Pop.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ConsoleEngineLib\ConsoleEngineLib.csproj" />
   </ItemGroup>
 
