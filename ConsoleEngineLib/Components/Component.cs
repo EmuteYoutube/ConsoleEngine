@@ -1,4 +1,4 @@
-﻿using ConsoleEngineLib.Game;
+﻿using ConsoleEngineLib.Games;
 using ConsoleEngineLib.Rendering;
 
 namespace ConsoleEngineLib.Components

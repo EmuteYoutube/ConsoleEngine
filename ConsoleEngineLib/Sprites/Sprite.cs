@@ -6,9 +6,9 @@ namespace ConsoleEngineLib.Sprites
 {
     public class Sprite
     {
-        private char[,] data;
-        public char[,] GetData() => data;
-        public Sprite(char[,] data)
+        private  ConsoleKeyInstance[,] data;
+        public  ConsoleKeyInstance[,] GetData() => data;
+        public Sprite(ConsoleKeyInstance[,] data)
         {
             this.data = data;
         }

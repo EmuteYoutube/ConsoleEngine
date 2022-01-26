@@ -11,19 +11,21 @@ namespace ConsoleEngineLib.Sprites
         {
             string[] heightPieces = text.Split(delimeter);
             var maxLength = heightPieces.Select(o => o.Length).Max();
-            foreach (var piece in heightPieces)
+            for(int i = 0; i < heightPieces.Length;i++)
             {
+                var piece = heightPieces[i];
                 if (piece.Length < maxLength)
                 {
-
+                    piece += new string(' ', maxLength - piece.Length);
+                    heightPieces[i] = piece;
                 }
             }
             int maxHeight = heightPieces.Length;
-            char[,] data = new char[maxLength, maxHeight];
+            ConsoleKeyInstance[,] data = new ConsoleKeyInstance[maxLength, maxHeight];
             for(int x = 0; x< maxLength; x++)
             {
                 for (int y = 0; y < maxHeight; y++)
-                    data[x, y] = heightPieces[y][x];
+                    data[x, y] = new ConsoleKeyInstance(heightPieces[y][x]);
             }
             return new Sprite(data);
         }

@@ -4,7 +4,7 @@ namespace ConsoleEngineLib.Rendering
 {
     public class RenderChunk
     {
-        public RenderChunk(Vector3Int position, Vector2Int centerPoint, char[,] data)
+        public RenderChunk(Vector3 position, Vector2 centerPoint, ConsoleKeyInstance[,] data)
         {
             Position = position;
             CenterPoint = centerPoint;
@@ -12,16 +12,16 @@ namespace ConsoleEngineLib.Rendering
         }
 
 
-        public RenderChunk(Vector2Int centerPoint, char[,] data)
+        public RenderChunk(Vector2 centerPoint, ConsoleKeyInstance[,] data)
         {
-            Position = Vector3Int.Zero;
+            Position = Vector3.Zero;
             CenterPoint = centerPoint;
             Data = data;
         }
 
-        public Vector3Int Position { get; set; }
-        public Vector2Int CenterPoint { get; set; }
-        public char[,] Data { get; private set; }
+        public Vector3 Position { get; set; }
+        public Vector2 CenterPoint { get; set; }
+        public ConsoleKeyInstance[,] Data { get; private set; }
         public int Width { get { return Data.GetLength(0); } }
         public int Height { get { return Data.GetLength(1); } }
 

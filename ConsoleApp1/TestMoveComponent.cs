@@ -1,17 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleEngineLib.Components;
-
+using ConsoleEngineLib.Games;
 public class TestMoveComponent : Component
 {
-    int dir = 1;
-    public DateTime nextTick = DateTime.Now.AddMilliseconds(500);
+    float dir = 1;
+    public float MoveSpeed = 10f;
     public override void Update()
     {
-        if(nextTick < DateTime.Now)
-        {
-            nextTick = DateTime.Now.AddMilliseconds(500);
-            this.GameObject.Position.Y += dir;
-            if (this.GameObject.Position.Y > 10)
+            this.GameObject.Position.Y += dir * MoveSpeed * Game.DeltaTime;
+            if (this.GameObject.Position.Y >= 30)
             {
                 dir = -1;
             }
@@ -20,7 +17,7 @@ public class TestMoveComponent : Component
             {
                 dir = 1;
             }
-        }
+        
       
         base.Update();
     }

@@ -4,22 +4,22 @@ using ConsoleEngineLib.Rendering;
 using ConsoleEngineLib.Scenes;
 using System.Collections.Generic;
 
-namespace ConsoleEngineLib.Game
+namespace ConsoleEngineLib.Games
 {
     public class GameObject: RenderGameLoopBase
     {
         public Scene Scene { get; set; }
         protected List<Component> components { get; set; }
         public string Name { get; private set; }
-        public Vector3Int Position { get; set; }
+        public Vector3 Position { get; set; }
         public GameObject(string name)
         {
             this.Name = name;
             this.components = new List<Component>();
-            this.Position = Vector3Int.Zero;
+            this.Position = Vector3.Zero;
         }
 
-        public GameObject(string name,Vector3Int position): this(name)
+        public GameObject(string name,Vector3 position): this(name)
         { 
             this.Position = position;
         }

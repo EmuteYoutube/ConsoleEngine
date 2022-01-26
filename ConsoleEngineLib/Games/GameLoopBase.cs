@@ -1,4 +1,4 @@
-﻿namespace ConsoleEngineLib.Game
+﻿namespace ConsoleEngineLib.Games
 {
     public abstract class GameLoopBase
     {

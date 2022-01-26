@@ -1,4 +1,4 @@
-﻿using ConsoleEngineLib.Game;
+﻿using ConsoleEngineLib.Games;
 using System.Collections.Generic;
 
 namespace ConsoleEngineLib.Rendering

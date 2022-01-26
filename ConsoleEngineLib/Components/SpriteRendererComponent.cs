@@ -9,7 +9,7 @@ namespace ConsoleEngineLib.Components
 {
     public class SpriteRendererComponent:Component
     {
-        public SpriteRendererComponent(Sprite sprite,Vector2Int? centerPoint =null)
+        public SpriteRendererComponent(Sprite sprite,Vector2? centerPoint =null)
         {
             Sprite = sprite;
             if (centerPoint == null)
@@ -18,13 +18,13 @@ namespace ConsoleEngineLib.Components
                 this.CenterPoint = centerPoint;
         }
 
-        private Vector2Int calculateCenterPoint(Sprite sprite)
+        private Vector2 calculateCenterPoint(Sprite sprite)
         {
-            return new Vector2Int(sprite.Width / 2, sprite.Height / 2);
+            return new Vector2(sprite.Width / 2, sprite.Height / 2);
         }
 
         public Sprite Sprite { get; }
-        public Vector2Int CenterPoint { get; }
+        public Vector2 CenterPoint { get; }
 
         public override List<RenderChunk>? Render()
         {

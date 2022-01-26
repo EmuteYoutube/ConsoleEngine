@@ -4,6 +4,6 @@ namespace ConsoleEngineLib.Rendering
 {
     public abstract class Renderer
     {
-        public abstract void Render(List<RenderChunk> ro);
+        public abstract void Render(List<RenderChunk> ro, int bufferWidth,int bufferHeight);
     }
 }
