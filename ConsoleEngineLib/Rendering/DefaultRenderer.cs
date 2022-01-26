@@ -41,6 +41,13 @@ namespace ConsoleEngineLib.Rendering
                         if (startX + x >= bufferWidth || startY + y >= bufferHeight)
                             continue;
 
+                        if(chunk.Data[x,y].Character == '~' && cBuffer[startX + x, startY + y] == null)
+                        {
+                            cBuffer[startX + x, startY + y] = new ConsoleKeyInstance(' ');
+                        }else if(chunk.Data[x,y].Character == '~')
+                        {
+
+                        }else
                             cBuffer[startX + x, startY + y] = chunk.Data[x, y];
                        
                     }

@@ -18,7 +18,13 @@ Scene getMainMenu()
     var scene = new Scene("Main Menu");
 
     var title = new GameObject("Title" ,new ConsoleEngineLib.Math.Vector3(5, 0,1));
-    title.AddComponent(new ConsoleEngineLib.Components.SpriteRendererComponent(SpriteHelper.FromText(@"My %Red%Fancy Game"), new ConsoleEngineLib.Math.Vector2(0, 0)));
+    title.AddComponent(new ConsoleEngineLib.Components.SpriteRendererComponent(SpriteHelper.FromText(@"|^^^^^^^^^^^^^^^^^^^^^^^^^^^^^|
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+|~~~~~~~~~~CENTER~~~~~~~~~~~~~|
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|
+|_____________________________|"), new ConsoleEngineLib.Math.Vector2(0, 0)));
     title.AddComponent(new TestMoveComponent());
     
 
